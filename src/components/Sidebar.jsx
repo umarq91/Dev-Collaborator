@@ -35,12 +35,12 @@ function Sidebar() {
       <SideBarOption Icon={Apps} title="Apps"/>
       <SideBarOption Icon={FileCopy} title="File browser"/>
       <SideBarOption Icon={ExpandLess} title="Show less"/>
-      <hr className='opacity-20 my-1'/>
+      <hr className='opacity-20 my-2'/>
       
       <SideBarOption Icon={ExpandMore} title="Show More"/>
 
 
-      <hr className='opacity-20 my-1'/>
+      <hr className='opacity-20 my-2'/>
       <SideBarOption Icon={Add} addChannelOption title="Add Channel"/>
 
 
