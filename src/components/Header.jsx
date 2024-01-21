@@ -8,7 +8,7 @@ import HelpOutLine from '@mui/icons-material/HelpOutline';
 
 const Header = () => {
   return (
-
+    // Container
     <div className='flex fixed w-full items-center justify-between py-2 text-white bg-slack *:'>
 
                                      {/* Header Left */}
@@ -24,8 +24,7 @@ const Header = () => {
 
             <div style={{ flex: 0.4, backgroundColor: '#421f44',opacity:1 ,color:'gray'  }} className=" flex overflow-hidden text-center rounded-md px-[50px] border-gray-800"> 
               <SearchIcon/>
-              {/* input here */}
-
+              {/* input here */}      
               </div>
 
            
