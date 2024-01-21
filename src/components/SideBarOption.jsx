@@ -1,10 +1,29 @@
 import React from 'react'
 import InsertComment from '@mui/icons-material/InsertComment';
+import { db } from '../firebase';
+import {  addDoc, collection, getDocs } from 'firebase/firestore';
 
 
-function SideBarOptions({Icon,title}) {
+function SideBarOptions({Icon,title,addChannelOption}) {
+  const collectionRef = collection(db,"rooms")
+const addChannel =()=>{
+
+  const channelName = prompt('Please enter a Room Name')
+addDoc(collectionRef,{
+  name:channelName
+})
+
+}
+
+const selectChannel =()=>{
+  
+}
+
   return (
-    <div className='flex text-sm items-center pl-[2px] p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 ml-4 gap-2'>
+    <div className='flex text-sm items-center pl-[2px] p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 ml-4 gap-2'
+    onClick={addChannelOption ? addChannel : selectChannel}
+    >
+
         
 {Icon && <Icon fontSize="small" style={{padding:1}}  /> }
 {
