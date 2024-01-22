@@ -4,8 +4,21 @@ import CreateIcon from '@mui/icons-material/Create';
 import SideBarOption from './SideBarOption';
 import InsertComment from '@mui/icons-material/InsertComment';
 import { Apps, BookmarkBorder, Drafts, ExpandLess, ExpandMore, FileCopy, Inbox, PeopleAlt } from '@mui/icons-material';
+import {  addDoc, collection, getDocs } from 'firebase/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { db } from '../firebase';
 
 function Sidebar() {
+
+
+  const roomsCollectionRef = collection(db, "rooms");
+
+  // Use the Firebase hook to listen to the collection
+  const [channels, loading, error] = useCollection(roomsCollectionRef);
+  console.log(channels?.docs[0].data());
+  
+
+
   return (
     // container
 
@@ -38,10 +51,19 @@ function Sidebar() {
       <hr className='opacity-20 my-2'/>
       
       <SideBarOption Icon={ExpandMore} title="Show More"/>
-
+ 
 
       <hr className='opacity-20 my-2'/>
-      <SideBarOption Icon={Add} addChannelOption title="Add Channel"/>
+      <SideBarOption addChannelOption Icon={Add} title={'Add Channel'}/>
+     
+
+     
+      {channels?.docs.map((doc)=>(
+        <SideBarOption
+        key={doc.id}
+         
+          title={doc.data().name}/>
+      ))}
 
 
     </div>

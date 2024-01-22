@@ -5,11 +5,14 @@ import {  addDoc, collection, getDocs } from 'firebase/firestore';
 
 
 function SideBarOptions({Icon,title,addChannelOption}) {
-  const collectionRef = collection(db,"rooms")
+
+// Reference to the 'rooms' collection
+const roomsCollectionRef = collection(db, "rooms");
+
 const addChannel =()=>{
 
   const channelName = prompt('Please enter a Room Name')
-addDoc(collectionRef,{
+addDoc(roomsCollectionRef,{
   name:channelName
 })
 
@@ -30,7 +33,7 @@ const selectChannel =()=>{
   Icon ? (
     <h3 className='text-lg font-semibold'> {title} </h3>
   ) : (
-    <div className="div">
+    <div className="div px-2 text-lg font-light">
       <span className='p-4'>#</span> {title}
     </div>
   )
