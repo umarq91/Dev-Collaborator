@@ -16,6 +16,6 @@ export const appSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { enterRoom } = appSlice.actions;
 
-export const selectApp = state => state.app.roomId
+export const selectRoomId = state => state.app.roomId
 
 export default appSlice.reducer;
