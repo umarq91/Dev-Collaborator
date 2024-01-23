@@ -10,12 +10,11 @@ import { db } from '../firebase';
 
 function Sidebar() {
 
-
   const roomsCollectionRef = collection(db, "rooms");
 
   // Use the Firebase hook to listen to the collection
   const [channels, loading, error] = useCollection(roomsCollectionRef);
-  console.log(channels?.docs[0].data());
+
   
 
 
@@ -61,7 +60,7 @@ function Sidebar() {
       {channels?.docs.map((doc)=>(
         <SideBarOption
         key={doc.id}
-         
+        id={doc.id}
           title={doc.data().name}/>
       ))}
 

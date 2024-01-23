@@ -2,24 +2,30 @@ import React from 'react'
 import InsertComment from '@mui/icons-material/InsertComment';
 import { db } from '../firebase';
 import {  addDoc, collection, getDocs } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { enterRoom } from '../redux/appSlice';
 
 
-function SideBarOptions({Icon,title,addChannelOption}) {
+function SideBarOptions({Icon,title,addChannelOption,id}) {
 
-// Reference to the 'rooms' collection
+const dispatch = useDispatch();
+  // Reference to the 'rooms' collection
 const roomsCollectionRef = collection(db, "rooms");
 
-const addChannel =()=>{
 
-  const channelName = prompt('Please enter a Room Name')
-addDoc(roomsCollectionRef,{
-  name:channelName
-})
-
-}
+const addChannel = () => {
+  const channelName = prompt("Please enter a Room Name");
+  addDoc(roomsCollectionRef, {
+    name: channelName,
+  });
+};
 
 const selectChannel =()=>{
-  
+  if(id){
+    dispatch(enterRoom({
+      roomId:id
+    }))
+  }
 }
 
   return (
