@@ -1,2 +1,4 @@
 // fix the input in the Header , its showing too big 
 // test
+//On chat component , it should render to bottom automatically 
+// Chats still doesnt render in Order
