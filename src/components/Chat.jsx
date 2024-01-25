@@ -1,28 +1,37 @@
-  import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
-  import React from 'react'
+import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
+  import React, { useEffect, useRef } from 'react'
   import { useSelector } from 'react-redux';
   import { selectRoomId } from '../redux/appSlice';
   import ChatInput from './ChatInput';
   import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
   import { db } from '../firebase';
-  import { collection, doc } from 'firebase/firestore';
+  import { collection, doc,query,orderBy } from 'firebase/firestore';
 import Message from './Message';
 
   function Chat() {
-
+    const chatref = useRef(null)
       const roomId= useSelector(selectRoomId)
 
       const channelRef = roomId && doc(db, 'rooms', roomId) 
-      const messagesRef = roomId && collection(db, "rooms", roomId, "messages");
+      const messagesRef = roomId && query(collection(db, "rooms", roomId, "messages"),orderBy('createdAt','asc'));
 
 
   let [roomDetails] = useDocument(channelRef)
-let [roommessages] = useCollection(messagesRef)
+let [roommessages,loading] = useCollection(messagesRef)
+
+useEffect(()=>{
+
+chatref?.current?.scrollIntoView({
+  behavior:'smooth'
+})
+
+},[roomId,loading,messagesRef])
+
 
 
 
   return (
-    <div style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }} className="mt-16">
+    <div style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }} className="mt-32">
    
                                       {/* HEADER */}
 
@@ -69,12 +78,14 @@ let [roommessages] = useCollection(messagesRef)
                         
                           )})}
     </div>
-
+    <div ref={chatref} className='pb-[100px]'/>
                          {/* Chat input */}
         <ChatInput 
         channelId={roomId}
         channelName={roomDetails?.data().name}
         />   
+
+
 
 
     </div>
