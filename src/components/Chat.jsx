@@ -31,7 +31,7 @@ chatref?.current?.scrollIntoView({
 
 
   return (
-    <div style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }} className="mt-32">
+    <div style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }} className="mt-20">
    
                                       {/* HEADER */}
 
@@ -78,9 +78,10 @@ chatref?.current?.scrollIntoView({
                         
                           )})}
     </div>
-    <div ref={chatref} className='pb-[100px]'/>
+    <div ref={chatref} className='pb-[60px]'/>
                          {/* Chat input */}
         <ChatInput 
+        chatref={chatref} // just sending this so when we send text , screen should automatically scroll down 
         channelId={roomId}
         channelName={roomDetails?.data().name}
         />   

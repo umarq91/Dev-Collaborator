@@ -7,7 +7,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 
 
-function ChatInput({channelId,channelName}) {
+function ChatInput({channelId,channelName,chatref}) {
 const [inputMessge,setInputMessage] = useState('')
 
 
@@ -18,6 +18,7 @@ const [inputMessge,setInputMessage] = useState('')
         return false;
       }
 
+   
       const messagesRef = collection(db, "rooms", channelId, "messages");
 
       await addDoc(messagesRef, {
@@ -30,6 +31,10 @@ const [inputMessge,setInputMessage] = useState('')
       });
 
       console.log("Message added!");
+      chatref?.current?.scrollIntoView({
+        behavior:'smooth'
+      })
+      
       setInputMessage("");
     };
 

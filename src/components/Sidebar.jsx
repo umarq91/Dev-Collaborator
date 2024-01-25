@@ -44,11 +44,10 @@ function Sidebar() {
       <SideBarOption Icon={Drafts} title="Drafts"/>
       <SideBarOption Icon={BookmarkBorder} title="Channel browser"/>
       <SideBarOption Icon={PeopleAlt} title="People & user groups"/>
-      <SideBarOption Icon={Apps} title="Apps"/>
-      <SideBarOption Icon={FileCopy} title="File browser"/>
-      <SideBarOption Icon={ExpandLess} title="Show less"/>
+
+      {/* <SideBarOption Icon={ExpandLess} title="Show less"/>
       <hr className='opacity-20 my-2'/>
-      
+       */}
       <SideBarOption Icon={ExpandMore} title="Show More"/>
  
 
