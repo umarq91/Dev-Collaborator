@@ -7,7 +7,7 @@ function Message({message,user,userImage,createdAt}) {
      <img src={userImage} alt='user image'  width={60}  className='rounded-lg border-2 border-black'/>
             {/* Info */}
             <div className="pl-2">
-                <h3>
+                <h3 className='font-bold'>
                     {user + '  '}
                     <span
                     className='text-gray-400 text-sm ml-2 font-light'

@@ -31,65 +31,76 @@ chatref?.current?.scrollIntoView({
 
 
   return (
-    <div style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }} className="mt-20">
-   
-                                      {/* HEADER */}
-
+    <>
+  {roomId && roomDetails ? (
+    <div
+      style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }}
+      className="mt-28"
+    >
+      {/* HEADER */}
       <div className="flex justify-between  p-5 border-b-gray-500">
 
         {/* Header Left */}
         <div className="flex items-center">
-          <h3 className='flex lowercase mr-2'>
+          <h3 className="flex lowercase mr-2">
             <strong> #{roomDetails?.data().name} </strong>
           </h3>
-          <StarBorderOutlined  className='ml-2 text-lg'/>
+          <StarBorderOutlined className="ml-2 text-lg" />
         </div>
 
 
         {/* Header Right */}
         <div className="flex items-center self-center text-sm">
-            <p>
-                <InfoOutlined className='mb-1'/> Details
-            </p>
+          <p>
+            <InfoOutlined className="mb-1" /> Details
+          </p>
         </div>
-
-
       </div>
 
 
 
-                                    {/* Chat Messages */}
+                                  {/* Chat Messages */}
+
+      <div className="div">
+        {/* Listing Messages Here */}
+        {roommessages?.docs.map((doc) => {
+          let { message, createdAt, user, userImage } = doc.data();
+          return (
+            <Message
+              key={doc.id}
+              message={message}
+              userImage={userImage}
+              createdAt={createdAt}
+              user={user}
+            />
+          );
+        })}
+      </div>
+      <div ref={chatref} className="pb-[60px]" />
 
 
-    <div className="div">
 
-                       {/* Listing Messages Here */}
-                       {roommessages?.docs.map((doc)=>{
-                        let {message,createdAt,user,userImage} = doc.data()
-                        return(
+                                 {/* Chat input */}
 
-                          <Message
-                          key={doc.id}
-                          message={message}
-                          userImage={userImage}
-                          createdAt={createdAt}
-                          user={user}
-                          />
-                        
-                          )})}
-    </div>
-    <div ref={chatref} className='pb-[60px]'/>
-                         {/* Chat input */}
-        <ChatInput 
-        chatref={chatref} // just sending this so when we send text , screen should automatically scroll down 
+      <ChatInput
+        chatref={chatref} // just sending this so when we send text , screen should automatically scroll down
         channelId={roomId}
         channelName={roomDetails?.data().name}
-        />   
-
-
-
-
+      />
     </div>
+  )
+  :
+(
+  <div className='h-full flex justify-center items-center flex-1'>
+     <h3 className='text-5xl opacity-15 font-mono'> Create or Select a Room / Channel </h3>
+  </div>
+)
+      
+
+}
+    
+
+    </>
   );
 }
 

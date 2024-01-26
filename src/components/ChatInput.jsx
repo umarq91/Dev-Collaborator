@@ -1,13 +1,16 @@
 import { Button } from '@mui/material'
 import { collection } from 'firebase/firestore'
 import React, { useRef, useState } from 'react'
-import { db } from '../firebase'
+import { auth, db } from '../firebase'
 import { doc, getDoc,addDoc } from 'firebase/firestore';
 import { serverTimestamp } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 
 function ChatInput({channelId,channelName,chatref}) {
+  const [user] =  useAuthState(auth)
+
 const [inputMessge,setInputMessage] = useState('')
 
 
@@ -24,9 +27,9 @@ const [inputMessge,setInputMessage] = useState('')
       await addDoc(messagesRef, {
         message: inputMessge,
         createdAt: serverTimestamp(),
-        user: "Umar Qureshi",
+        user: user?.displayName,
         userImage:
-          "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D",
+          user?.photoURL,
         // include other message fields like timestamp, user info, etc.
       });
 
