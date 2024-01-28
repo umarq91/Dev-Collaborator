@@ -1,24 +1,39 @@
 import React from 'react'
 import InsertComment from '@mui/icons-material/InsertComment';
-import { db } from '../firebase';
-import {  addDoc, collection, getDocs } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+import {  addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../redux/appSlice';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 function SideBarOptions({Icon,title,addChannelOption,id}) {
-
 const dispatch = useDispatch();
-  // Reference to the 'rooms' collection
-const roomsCollectionRef = collection(db, "rooms");
+const roomsCollectionRef = collection(db, "rooms");   // Reference to the 'rooms' collection
+const [user] = useAuthState(auth)
+console.log(user);
+
+
+
+
 
 
 const addChannel = () => {
+  // todo : instead add a modal for asking this and return the error if criteria doesn't match
   const channelName = prompt("Please enter a Room Name");
+
+  if (channelName.length < 4) return;  // Ensuring the channel name meets a minimum length requirement
+
   addDoc(roomsCollectionRef, {
     name: channelName,
+    createdAt: serverTimestamp(),
+    creator: user.uid,  // Stores who made this room
+    members: {
+      [user.uid]: true  // Initialize the creator as a member
+    }
   });
 };
+
 
 const selectChannel =()=>{
   if(id){

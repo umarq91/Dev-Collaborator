@@ -1,4 +1,5 @@
 // fix the input in the Header , its showing too big 
-// test
-//On chat component , it should render to bottom automatically 
-// Chats still doesnt render in Order
+// test//On chat component , it should render to bottom automatically .. DONE 
+// Chats still doesnt render in Order .. DONE 
+
+// todo : instead add a modal for asking room name and return the error if criteria doesn't match in SIDEBAR component
