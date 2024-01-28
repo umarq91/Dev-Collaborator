@@ -28,6 +28,7 @@ function ChatInput({ channelId, channelName, chatref }) {
         createdAt: serverTimestamp(),
         user: user?.displayName,
         userImage: user?.photoURL,
+        userId:user?.uid
       });
 
       console.log("Message added!");

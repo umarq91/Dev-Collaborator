@@ -33,10 +33,13 @@ const Header = () => {
 
  useEffect(()=>{
 
-  handleOnlineStatus(true) //
-  
+const handleOnline = () => {
+  handleOnlineStatus(true);
+};
 
-  window.addEventListener('beforeunload',()=>handleOnlineStatus(false))
+ handleOnline(); //setting the online status to true if the use is logged in and turned the window tab back ON 
+  
+  window.addEventListener('beforeunload',()=>handleOnlineStatus(false))  // it sets to offline when screen turns off
 
  },[userRef])
 

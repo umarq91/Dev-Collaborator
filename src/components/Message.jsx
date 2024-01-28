@@ -1,6 +1,7 @@
 import React from 'react'
 
-function Message({message,user,userImage,createdAt}) {
+function Message({message,user,userImage,createdAt,userId,isAdmin}) {
+
   return (
     <div className='flex items-center p-[10px]'>
      
@@ -8,6 +9,7 @@ function Message({message,user,userImage,createdAt}) {
             {/* Info */}
             <div className="pl-2">
                 <h3 className='font-bold'>
+                    {isAdmin && <h2 className='text-[11px] -m-1 pl-1 font-normal text-green-700'> Creator </h2>}
                     {user + '  '}
                     <span
                     className='text-gray-400 text-sm ml-2 font-light'

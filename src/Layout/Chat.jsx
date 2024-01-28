@@ -21,6 +21,8 @@ import Message from '../components/Message';
     let [roomDetails] = useDocument(channelRef);
     let [roommessages, loading] = useCollection(messagesRef);
 
+      
+
 useEffect(()=>{
 
 chatref?.current?.scrollIntoView({
@@ -65,7 +67,7 @@ chatref?.current?.scrollIntoView({
       <div className="div">
         {/* Listing Messages Here */}
         {roommessages?.docs.map((doc) => {
-          let { message, createdAt, user, userImage } = doc.data();
+          let { message, createdAt, user, userImage,userId } = doc.data();
           return (
             <Message
               key={doc.id}
@@ -73,11 +75,13 @@ chatref?.current?.scrollIntoView({
               userImage={userImage}
               createdAt={createdAt}
               user={user}
+              userId={userId}
+              isAdmin={roomDetails?.data().creator === doc.data().userId}
             />
           );
         })}
       </div>
-      <div ref={chatref} className="pb-[60px]" />
+      <div ref={chatref} className="pb-[120px] md:pb-[65px]" />
 
 
 
