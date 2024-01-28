@@ -1,15 +1,14 @@
 import React from 'react';
 import {Route, BrowserRouter,Routes } from 'react-router-dom';
-import Home from './Home';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import Chat from './components/Chat';
+
+import Sidebar from './Layout/Sidebar';
+import Chat from './Layout/Chat';
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 import { Login } from '@mui/icons-material';
-import LoginPage from './components/LoginPage';
-import { SyncLoader
-} from 'react-spinners';
+import LoginPage from './Layout/LoginPage';
+import { SyncLoader} from 'react-spinners';
+import Header from './Layout/Header';
 
 function App() {
 

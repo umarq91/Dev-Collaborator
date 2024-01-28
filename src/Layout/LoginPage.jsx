@@ -1,15 +1,38 @@
 import { Button } from '@mui/material'
-import React from 'react'
-import { auth } from '../firebase';
+import React, { useRef } from 'react'
+import { auth, db } from '../firebase';
 import {  GoogleAuthProvider , signInWithPopup } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { loggedInUser } from '../redux/appSlice';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 function LoginPage() {
-
+  const dispatch = useDispatch();
 
   const handleSubmit =async (e)=>{
   e.preventDefault();
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
+    dispatch(loggedInUser(result.user)) // set use in redux for global user
+    const user = result.user
+  const userRef = doc(db,"users",user?.uid);
+  const userDoc = await getDoc(userRef);
+
+  if(!userDoc.exists()){
+    await setDoc(userRef,{
+      name: user.displayName,
+      email:user.email,
+      userId: user.uid,
+      profile : user.photoURL , 
+      isOnline : true 
+    }, {merge: true}) // Merge to overWrite existing files
+
+  }else{
+    await setDoc(userRef,{
+      isOnline:true
+    }, { merge : true})
+  }
+
   } catch (error) {
     console.error(error);
   }

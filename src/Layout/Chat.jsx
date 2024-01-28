@@ -2,29 +2,30 @@ import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
   import React, { useEffect, useRef } from 'react'
   import { useSelector } from 'react-redux';
   import { selectRoomId } from '../redux/appSlice';
-  import ChatInput from './ChatInput';
+  import ChatInput from '../components/ChatInput';
   import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
   import { db } from '../firebase';
   import { collection, doc,query,orderBy } from 'firebase/firestore';
-import Message from './Message';
+import Message from '../components/Message';
 
   function Chat() {
-    const chatref = useRef(null)
-      const roomId= useSelector(selectRoomId)
+    const chatref = useRef(null);
+    const roomId = useSelector(selectRoomId);
 
-      const channelRef = roomId && doc(db, 'rooms', roomId) 
-      const messagesRef = roomId && query(collection(db, "rooms", roomId, "messages"),orderBy('createdAt','asc'));
-
-
-  let [roomDetails] = useDocument(channelRef)
-let [roommessages,loading] = useCollection(messagesRef)
+    const channelRef = roomId && doc(db, "rooms", roomId);
+    const messagesRef = roomId &&
+      query(
+        collection(db, "rooms", roomId, "messages"),
+        orderBy("createdAt", "asc")
+      );
+    let [roomDetails] = useDocument(channelRef);
+    let [roommessages, loading] = useCollection(messagesRef);
 
 useEffect(()=>{
 
 chatref?.current?.scrollIntoView({
   behavior:'smooth'
 })
-
 },[roomId,loading,messagesRef])
 
 

@@ -3,3 +3,5 @@
 // Chats still doesnt render in Order .. DONE 
 
 // todo : instead add a modal for asking room name and return the error if criteria doesn't match in SIDEBAR component
+
+// added logged in User in redux , can remove it later if thats unnecssary

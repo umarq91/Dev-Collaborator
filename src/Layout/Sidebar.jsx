@@ -1,7 +1,7 @@
 import { Add, FiberManualRecord } from '@mui/icons-material'
 import React, { useState } from 'react'
 import CreateIcon from '@mui/icons-material/Create';
-import SideBarOption from './SideBarOption';
+import SideBarOption from '../components/SideBarOption';
 import InsertComment from '@mui/icons-material/InsertComment';
 import { Apps, BookmarkBorder, Drafts, ExpandLess, ExpandMore, FileCopy, Inbox, PeopleAlt } from '@mui/icons-material';
 import {  addDoc, collection, getDocs, query, serverTimestamp, where } from 'firebase/firestore';
