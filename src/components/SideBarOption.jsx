@@ -5,8 +5,8 @@ import {  addDoc, collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, 
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../redux/appSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 function SideBarOptions({Icon,title,addChannelOption,id,isCreator}) {
 const dispatch = useDispatch();
 const [user] = useAuthState(auth)
@@ -23,7 +23,7 @@ const selectChannel =()=>{
 }
 
 
-const leavRoom =async ()=>{
+const leaveRoom =async ()=>{
   if (!id || !user) return; // Check if roomId and user are available
 
   try {
@@ -77,9 +77,14 @@ const deleteRoom = async (roomId, e) => {
         <h3 className='p-1'>#</h3> 
         <div className='flex-1'>{title}</div> {/* Wrap the title */}
         {isCreator ? (
-         <button onClick={(event) => deleteRoom(id, event)} className='text-red-600 h-full text-sm hover:text-lg'>Delete</button>
+         <button 
+         title='delete this room'
+         onClick={(event) => deleteRoom(id, event)} className=' text-sm  hover:text-red-700'><DeleteIcon style={{ fontSize: '18px' }} /> </button>
         ) :
-        <button onClick={leavRoom} className='text-red-600 text-sm hover:text-lg '> Leave </button>
+        <button 
+        title='Leave this room'
+        onClick={(event) => leaveRoom(id, event)} className=' text-sm  hover:text-red-700'><LogoutIcon style={{ fontSize: '18px' }} /> </button>
+       
         }
       </div>
       

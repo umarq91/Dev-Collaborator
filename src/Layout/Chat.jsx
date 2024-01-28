@@ -1,17 +1,21 @@
-import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
+  import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
   import React, { useEffect, useRef } from 'react'
   import { useSelector } from 'react-redux';
   import { selectRoomId } from '../redux/appSlice';
   import ChatInput from '../components/ChatInput';
   import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
-  import { db } from '../firebase';
+  import { auth, db } from '../firebase';
   import { collection, doc,query,orderBy } from 'firebase/firestore';
-import Message from '../components/Message';
+  import Message from '../components/Message';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import CopyLinkButton from '../components/helpers/CopyLinkButton';
 
   function Chat() {
+  let  MY_URL = 'localhost:5173'
+
     const chatref = useRef(null);
     const roomId = useSelector(selectRoomId);
-
+    const [user] = useAuthState(auth)
     const channelRef = roomId && doc(db, "rooms", roomId);
     const messagesRef = roomId &&
       query(
@@ -20,8 +24,9 @@ import Message from '../components/Message';
       );
     let [roomDetails] = useDocument(channelRef);
     let [roommessages, loading] = useCollection(messagesRef);
+ 
+    const isCreator = roomDetails?.data().creator === user?.uid  
 
-      
 
 useEffect(()=>{
 
@@ -55,7 +60,7 @@ chatref?.current?.scrollIntoView({
         {/* Header Right */}
         <div className="flex items-center self-center text-sm">
           <p>
-            <InfoOutlined className="mb-1" /> Details
+            {isCreator && <CopyLinkButton link={`${MY_URL}/?room=${roomId}`} />}
           </p>
         </div>
       </div>

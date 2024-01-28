@@ -9,6 +9,7 @@ import { Login } from '@mui/icons-material';
 import LoginPage from './Layout/LoginPage';
 import { SyncLoader} from 'react-spinners';
 import Header from './Layout/Header';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
   
         </Routes>
       </div>
+  <ToastContainer/>
     </BrowserRouter>
     )}
  
