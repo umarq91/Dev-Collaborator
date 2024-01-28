@@ -7,3 +7,10 @@
 // added logged in User in redux , can remove it later if thats unnecssary
 
 // todo : Add modal for delete and leave
+// add invitation model to send and receive invitations
+// set Invitation Fields  and fetch Invitations plus Set Join too
+
+// todo : one person can send one request to user , 
+// fix mistake , make different functions for joining By Email vs joining by Link
+
+

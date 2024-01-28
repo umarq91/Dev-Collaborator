@@ -7,11 +7,14 @@
   import { auth, db } from '../firebase';
   import { collection, doc,query,orderBy } from 'firebase/firestore';
   import Message from '../components/Message';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import CopyLinkButton from '../components/helpers/CopyLinkButton';
+    import { useAuthState } from 'react-firebase-hooks/auth';
+    import CopyLinkButton from '../components/helpers/CopyLinkButton';
+import { Invitation } from '../components/Invitations';
+import Invite from '../pages/Invite';
+import ThreeDotsDropdown from '../components/helpers/ThreeDotsDropdown';
 
   function Chat() {
-  let  MY_URL = 'localhost:5173'
+
 
     const chatref = useRef(null);
     const roomId = useSelector(selectRoomId);
@@ -45,9 +48,12 @@ chatref?.current?.scrollIntoView({
       style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }}
       className="mt-28"
     >
-      {/* HEADER */}
-      <div className="flex justify-between  p-5 border-b-gray-500">
 
+                                  
+                                {/* HEADER */}
+
+      <div className="flex justify-between  p-5 border-b-gray-500">
+      
         {/* Header Left */}
         <div className="flex items-center">
           <h3 className="flex lowercase mr-2">
@@ -60,7 +66,8 @@ chatref?.current?.scrollIntoView({
         {/* Header Right */}
         <div className="flex items-center self-center text-sm">
           <p>
-            {isCreator && <CopyLinkButton link={`${MY_URL}/?room=${roomId}`} />}
+            {isCreator &&   <ThreeDotsDropdown/>}
+          
           </p>
         </div>
       </div>
@@ -70,7 +77,7 @@ chatref?.current?.scrollIntoView({
                                   {/* Chat Messages */}
 
       <div className="div">
-        {/* Listing Messages Here */}
+                         {/* Listing Messages Here */}
         {roommessages?.docs.map((doc) => {
           let { message, createdAt, user, userImage,userId } = doc.data();
           return (
@@ -102,7 +109,8 @@ chatref?.current?.scrollIntoView({
   :
 (
   <div className='h-full flex justify-center items-center flex-1'>
-     <h3 className='text-5xl opacity-15 font-mono'> Create or Select a Room / Channel </h3>
+     {/* <h3 className='text-5xl opacity-15 font-mono'> Create or Select a Room / Channel </h3> */}
+    <Invite/>
   </div>
 )
       

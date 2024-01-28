@@ -10,6 +10,7 @@ import LoginPage from './Layout/LoginPage';
 import { SyncLoader} from 'react-spinners';
 import Header from './Layout/Header';
 import { ToastContainer } from 'react-toastify';
+import Invite from './pages/Invite';
 
 function App() {
 
@@ -52,9 +53,11 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Chat/>}>
-           
+          
           </Route>
-  
+          <Route path="/invite" element={<Invite/>}/>
+          
+          
         </Routes>
       </div>
   <ToastContainer/>
