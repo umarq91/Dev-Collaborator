@@ -1,7 +1,7 @@
 import React from 'react'
 import InsertComment from '@mui/icons-material/InsertComment';
 import { auth, db } from '../firebase';
-import {  addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp } from 'firebase/firestore';
+import {  addDoc, collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../redux/appSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -23,8 +23,28 @@ const selectChannel =()=>{
 }
 
 
-const leavRoom = ()=>{
-  console.log("Leave");
+const leavRoom =async ()=>{
+  if (!id || !user) return; // Check if roomId and user are available
+
+  try {
+    const roomRef = doc(db, "rooms", id);
+    const roomSnap = await getDoc(roomRef);
+
+    if (roomSnap.exists()) {
+      const roomData = roomSnap.data();
+
+      // Remove the user from the members object
+      delete roomData.members[user.uid];
+
+      // Update the room document
+      await updateDoc(roomRef, { members: roomData.members });
+      console.log(`User ${user.uid} left the room ${id}`);
+    } else {
+      console.log("Room does not exist");
+    }
+  } catch (error) {
+    console.error("Error leaving room: ", error);
+  }
 }
 
 
