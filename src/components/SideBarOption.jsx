@@ -11,9 +11,6 @@ function SideBarOptions({Icon,title,addChannelOption,id}) {
 const dispatch = useDispatch();
 const roomsCollectionRef = collection(db, "rooms");   // Reference to the 'rooms' collection
 const [user] = useAuthState(auth)
-console.log(user);
-
-
 
 
 
