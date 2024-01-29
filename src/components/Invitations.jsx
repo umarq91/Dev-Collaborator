@@ -1,11 +1,12 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { auth, db } from '../firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../redux/appSlice';
+import { toast } from 'react-toastify';
 
-export const Invitation = () => {
+export const Invitation = ({invitedRoom}) => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -13,8 +14,15 @@ export const Invitation = () => {
   const [user] = useAuthState(auth);
   const userUid = user.uid;
   const dispatch = useDispatch()
+  const roomRef = doc(db,'rooms',invitedRoom)
+  
 
-  const acceptInvitation = async () => {
+ // for deleting the request from database after joining the room
+ const invitationRef = query(collection(db, "invitations"), where("invitedUser", "==", user.email), where("roomId", "==", invitedRoom));
+
+
+
+  const acceptInvitationByLink = async () => {
     if (roomId && userUid) {
       try {
         const roomRef = doc(db, 'rooms', roomId);
@@ -36,10 +44,34 @@ export const Invitation = () => {
     }
   };
 
+
+
+  const acceptInvitationByEmail = async () => {
+    try {
+      const roomSnap = await getDoc(roomRef);
+      const roomData = roomSnap.data();
+  
+      roomData.members[user.uid] = true;
+      await updateDoc(roomRef, { members: roomData.members });
+      toast.success("Added in Room : " + roomData.name);
+  
+      // Assuming invitationRef is defined correctly
+      const invitationSnap = await getDocs(invitationRef);
+
+      invitationSnap.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+    } catch (error) {
+      console.error("Error in accepting invitation: ", error);
+      toast.error("Error in accepting invitation");
+    }
+  };
+  
+  
   return (
     <div>
       <h1>Accept Invitation</h1>
-      <button className='bg-green-500 p-4' onClick={acceptInvitation}>Join Room</button>
+      <button className='bg-green-500 p-4' onClick={acceptInvitationByEmail}>Join Room</button>
     </div>
   );
 };

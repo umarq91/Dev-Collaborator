@@ -25,23 +25,21 @@ const selectChannel =()=>{
 
 const leaveRoom =async ()=>{
   if (!id || !user) return; // Check if roomId and user are available
-
+  dispatch(enterRoom({ roomId: null })); // Update state after successful deletion
   try {
     const roomRef = doc(db, "rooms", id);
     const roomSnap = await getDoc(roomRef);
 
     if (roomSnap.exists()) {
       const roomData = roomSnap.data();
-
+  
       // Remove the user from the members object
       delete roomData.members[user.uid];
 
-      // Update the room document
+
       await updateDoc(roomRef, { members: roomData.members });
-      console.log(`User ${user.uid} left the room ${id}`);
-    } else {
-      console.log("Room does not exist");
-    }
+
+    } 
   } catch (error) {
     console.error("Error leaving room: ", error);
   }

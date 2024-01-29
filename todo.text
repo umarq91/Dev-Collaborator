@@ -14,3 +14,14 @@
 // fix mistake , make different functions for joining By Email vs joining by Link
 
 
+invitation {
+  invitedUserId: string,          // The UID of the user who is invited.
+  invitedUserEmail: string,      // The email of the user who is invited.
+  inviterUserId: string,         // The UID of the user who sent the invitation.
+  inviterName: string,           // The name of the user who sent the invitation.
+  inviterProfilePicUrl: string,  // The URL to the profile picture of the user who sent the invitation.
+  roomId: string,                // The ID of the room to which the user is invited.
+  roomName: string,              // The name of the room to which the user is invited.
+  timestamp: timestamp,          // The timestamp when the invitation was created.
+  status: string,                // The status of the invitation (e.g., 'pending', 'accepted', 'declined').
+}

@@ -14,10 +14,17 @@ function Invite() {
         const q = query(roomReference, where("invitedUser", "==", user.email));
         const [invites] = useCollection(q);
 
+
+
+        // Printing Requests
         if(invites?.docs.length > 0){
-            content = invites.docs.map(doc => (
-                <Invitation key={doc.id} {...doc.data()} />
-            ));
+            content = invites.docs.map(doc => {
+                let {roomId} = doc.data();
+                return(
+
+                    <Invitation key={doc.id}  invitedRoom={roomId} {...doc.data()} />
+                )
+        });
         } else {
             content = <p>No Invitations</p>;
         }
