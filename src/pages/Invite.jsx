@@ -16,7 +16,7 @@ function Invite() {
 
 
 
-        // Printing Requests
+        // Printing
         if(invites?.docs.length > 0){
             content = invites.docs.map(doc => {
                 let {roomId} = doc.data();

@@ -8,11 +8,13 @@ import {  addDoc, collection, getDocs, query, serverTimestamp, where } from 'fir
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import AddRoomModal from '../components/Modals/AddRoomModal';
+
 
 function Sidebar() {
   const [user] =  useAuthState(auth);
   const roomsCollectionRef = collection(db, "rooms");
-
+  const [isModalOpen , setIsModalOpen] = useState(false)
   // Query 
   const roomsQuery = query(
     roomsCollectionRef,
@@ -25,22 +27,22 @@ function Sidebar() {
   const [isShowMoreOpen , SetShowMoreOpen] = useState(false)
 
   
-  const addChannel = () => {
-    // todo : instead add a modal for asking this and return the error if criteria doesn't match
-    const channelName = prompt("Please enter a Room Name");
+  const addChannel = (roomName,roomType) => {
+    setIsModalOpen(true)
   
-    if (channelName.length < 4) return;  // Ensuring the channel name meets a minimum length requirement
+  
+    if (roomName.length < 4) return;  
   
     addDoc(roomsCollectionRef, {
-      name: channelName,
+      name: roomName,
+      type:roomType,
       createdAt: serverTimestamp(),
-      creator: user.uid,  // Stores who made this room
+      creator: user.uid,  
       members: {
         [user.uid]: true  // Initialize the creator as a member
       }
     });
   };
-
 
   
   return (
@@ -92,7 +94,11 @@ function Sidebar() {
         />
       ))}
 
+      <AddRoomModal isOpen={isModalOpen} addChannel={addChannel} setModalOpen={setIsModalOpen} />
+    
     </div>
+
+
   );
 }
 

@@ -12,9 +12,11 @@
 import { Invitation } from '../components/Invitations';
 import Invite from '../pages/Invite';
 import ThreeDotsDropdown from '../components/helpers/ThreeDotsDropdown';
+import { useNavigate } from 'react-router-dom';
 
   function Chat() {
-
+    const navigate = useNavigate()
+  
 
     const chatref = useRef(null);
     const roomId = useSelector(selectRoomId);
@@ -25,11 +27,15 @@ import ThreeDotsDropdown from '../components/helpers/ThreeDotsDropdown';
         collection(db, "rooms", roomId, "messages"),
         orderBy("createdAt", "asc")
       );
+
     let [roomDetails] = useDocument(channelRef);
     let [roommessages, loading] = useCollection(messagesRef);
  
     const isCreator = roomDetails?.data().creator === user?.uid  
 
+
+    
+    
 
 useEffect(()=>{
 

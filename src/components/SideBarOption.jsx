@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InsertComment from '@mui/icons-material/InsertComment';
 import { auth, db } from '../firebase';
 import {  addDoc, collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore';
@@ -7,11 +7,15 @@ import { enterRoom } from '../redux/appSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { ConfirmRemoval } from './Modals/ConfirmRemoval';
+
+
 function SideBarOptions({Icon,title,addChannelOption,id,isCreator}) {
 const dispatch = useDispatch();
-const [user] = useAuthState(auth)
+const [user] = useAuthState(auth);
 
-
+const [isDeleteModalOpen,setIsDeleteModalOpen] = useState(false)
+const [modalAction, setModalAction] = useState(null); // 'delete' or 'leave'
 
 
 const selectChannel =()=>{
@@ -22,10 +26,20 @@ const selectChannel =()=>{
   }
 }
 
+const handleAction = async () => {
+  if (modalAction === 'delete') {
+    await deleteRoom(id);
+  } else if (modalAction === 'leave') {
+    await leaveRoom(id);
+  }
+}
+
+
 
 const leaveRoom =async ()=>{
-  if (!id || !user) return; // Check if roomId and user are available
-  dispatch(enterRoom({ roomId: null })); // Update state after successful deletion
+  if (!id || !user) return; 
+  dispatch(enterRoom({ roomId: null })); 
+  
   try {
     const roomRef = doc(db, "rooms", id);
     const roomSnap = await getDoc(roomRef);
@@ -46,51 +60,71 @@ const leaveRoom =async ()=>{
 }
 
 
-const deleteRoom = async (roomId, e) => {
-  e.stopPropagation(); // Stop event propagation to prevent triggering selectChannel
+const deleteRoom = async () => {
   try {
     dispatch(enterRoom({ roomId: null })); // Update state after successful deletion
     const roomRef = doc(db, "rooms", roomId);
     await deleteDoc(roomRef);
     console.log(`Room with ID ${roomId} has been deleted.`);
-  } catch (error) {
+  } catch(error){
       console.error("Error deleting room: ", error);
     }
+  
 };
 
 
 
   return (
-    <div className='flex text-sm items-center pl-[2px] p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 ml-4 gap-2'
-   
-    >
-{
-      Icon ? (
+    <div className="flex text-sm items-center pl-[2px] p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 ml-4 gap-2">
+      {Icon ? (
         <div className="flex items-center">
           <Icon fontSize="small" style={{ padding: 1 }} />
-          <h3 className='text-lg font-semibold'> {title} </h3>
+          <h3 className="text-lg font-semibold"> {title} </h3>
         </div>
       ) : (
-        <div className="div px-2 text-lg font-light flex justify-around  w-full items-center" onClick={selectChannel}> 
-        <h3 className='p-1'>#</h3> 
-        <div className='flex-1'>{title}</div> {/* Wrap the title */}
-        {isCreator ? (
-         <button 
-         title='delete this room'
-         onClick={(event) => deleteRoom(id, event)} className=' text-sm  hover:text-red-700'><DeleteIcon style={{ fontSize: '18px' }} /> </button>
-        ) :
-        <button 
-        title='Leave this room'
-        onClick={(event) => leaveRoom(id, event)} className=' text-sm  hover:text-red-700'><LogoutIcon style={{ fontSize: '18px' }} /> </button>
-       
-        }
-      </div>
-      
-      )
-    }
+        <div
+          className="div px-2 text-lg font-light flex justify-around  w-full items-center"
+          onClick={selectChannel}
+        >
+          <h3 className="p-1">#</h3>
+          <div className="flex-1">{title}</div> 
+        {/* Delete and Leave button */}
+          {isCreator ? (
+            <button
+              title="Delete this room"
+              onClick={() => {
+                setModalAction("delete");
+                setIsDeleteModalOpen(true);
+              }}
+              className=" text-sm  hover:text-red-700"
+            >
+              <DeleteIcon style={{ fontSize: "18px" }} />
+            </button>
+          ) : (
+            <button
+              title="Leave this room"
+              onClick={() => {
+                setModalAction("leave");
+                setIsDeleteModalOpen(true);
+              }}
+              className="text-sm hover:text-red-700"
+            >
+              {" "}
+              <LogoutIcon style={{ fontSize: "18px" }} />{" "}
+            </button>
+          )}
+        </div>
+      )}
 
+    <ConfirmRemoval
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleAction}
+        action={modalAction}
+        id={id}
+      />
     </div>
-  )
+  );
 }
 
 export default SideBarOptions
