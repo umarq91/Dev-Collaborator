@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { ConfirmRemoval } from './Modals/ConfirmRemoval';
+import { toast } from 'react-toastify';
 
 
 function SideBarOptions({Icon,title,addChannelOption,id,isCreator}) {
@@ -52,7 +53,7 @@ const leaveRoom =async ()=>{
 
 
       await updateDoc(roomRef, { members: roomData.members });
-
+      toast.info('Room Left')
     } 
   } catch (error) {
     console.error("Error leaving room: ", error);
@@ -63,9 +64,9 @@ const leaveRoom =async ()=>{
 const deleteRoom = async () => {
   try {
     dispatch(enterRoom({ roomId: null })); // Update state after successful deletion
-    const roomRef = doc(db, "rooms", roomId);
+    const roomRef = doc(db, "rooms", id);
     await deleteDoc(roomRef);
-    console.log(`Room with ID ${roomId} has been deleted.`);
+   toast.info('Room Deleted')
   } catch(error){
       console.error("Error deleting room: ", error);
     }

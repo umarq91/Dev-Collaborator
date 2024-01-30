@@ -31,11 +31,7 @@ import { useNavigate } from 'react-router-dom';
     let [roomDetails] = useDocument(channelRef);
     let [roommessages, loading] = useCollection(messagesRef);
  
-    const isCreator = roomDetails?.data().creator === user?.uid  
-
-
-    
-    
+    const isCreator = roomDetails?.data()?.creator === user?.uid  
 
 useEffect(()=>{
 

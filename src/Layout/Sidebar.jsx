@@ -15,11 +15,11 @@ function Sidebar() {
   const [user] =  useAuthState(auth);
   const roomsCollectionRef = collection(db, "rooms");
   const [isModalOpen , setIsModalOpen] = useState(false)
-  // Query 
+
+
   const roomsQuery = query(
     roomsCollectionRef,
     where(`members.${user.uid}`, '==', true),  // Check if the user is a member
-    // where('creator', '==', user.uid)   ,        // OR check if the user is the creator
   );
   
   // Use the Firebase hook to listen to the collection
@@ -51,11 +51,11 @@ function Sidebar() {
     
                      {/* Header */}
 
-      <div style={{ borderBottom: `1px solid #49274b` }} className=" flex p-3 mt-12">
+      <div style={{ borderBottom: `1px solid #49274b` }} className=" flex p-3 mt-5">
         <div className="info flex-1 ">
           <h1 className="text-2xl font-bold mb-1 ml-1"> Dev Flex </h1>
           <h3 className=" text-sm flex items-center">
-            <FiberManualRecord className="text-green-800 text-[10px] mt-[1px] mr-[1px]" />
+            <FiberManualRecord className="text-green-700 text-[5px] mt-[1px] mr-[1px]" />
             {user?.displayName}
           </h3>
         </div>
@@ -64,8 +64,9 @@ function Sidebar() {
 
                       {/* Sidebar Options */}
 
-      {/* dummy data for now */}
-      <SideBarOption Icon={InsertComment} title="Threads"/>
+         {/* dummy data for now  , unComment Next Comment for Dummy Stratogies*/}
+         
+      {/* <SideBarOption Icon={InsertComment} title="Threads"/>
       <SideBarOption Icon={Inbox} title="Mentions & Reactions"/>
 
 
@@ -79,7 +80,7 @@ function Sidebar() {
         ):  
         <button onClick={()=> SetShowMoreOpen(true)} className='pl-3 h-12 text-lg'> {<ExpandMore/>} Show More </button>
         }
-      
+       */}
 
       <hr className='opacity-20 my-2'/>
 
