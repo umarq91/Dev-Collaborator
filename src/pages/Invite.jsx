@@ -1,41 +1,73 @@
-import React from 'react';
-import { Invitation } from '../components/Invitations';
-import { collection, query, where } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'; // If you're using react-router
+import { Timestamp, doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-function Invite() { 
-    const [user] = useAuthState(auth);
-    let content;
+function InviteHandler() {
+  const location = useLocation();
+  const [inviteValid, setInviteValid] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    if (user) {
-        const roomReference = collection(db, "invitations");
-        const q = query(roomReference, where("invitedUser", "==", user.email));
-        const [invites] = useCollection(q);
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const roomId = queryParams.get('room');
+    const inviteId = queryParams.get('invite');
+    if (roomId && inviteId) {
+      verifyInvite(roomId, inviteId);
+    } else {
+      // Handle error: queryParams are not as expected
+      setLoading(false);
+    }
+  }, [location]);
 
-
-
-        // Printing
-        if(invites?.docs.length > 0){
-            content = invites.docs.map(doc => {
-                let {roomId} = doc.data();
-                return(
-
-                    <Invitation key={doc.id}  invitedRoom={roomId} {...doc.data()} />
-                )
-        });
+  const verifyInvite = async (roomId, inviteId) => {
+    const inviteRef = doc(db, "linkInvites", inviteId);
+    const inviteDoc = await getDoc(inviteRef);
+    if (inviteDoc.exists()) {
+      const inviteData = inviteDoc.data();
+      console.log(inviteData);
+      if (inviteData.roomId === roomId) {
+        // Check expiration time
+        const currentTime = Timestamp.now();
+        if (inviteData.expirationTime.toMillis() > currentTime.toMillis()) {
+          setInviteValid(true);
+          console.log("Yes Valid");
         } else {
-            content = <p>No Invitations</p>;
+          // Invite is expired
         }
-    
-    } 
+      } else {
+        // roomId does not match with invite
+      }
+    } else {
+      // Invite does not exist
+    }
+    setLoading(false);
+  };
 
-    return (
-        <div className='mt-16 flex justify-center items-center flex-1'>
-            {content}
-        </div>
-    );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!inviteValid) {
+    return <div>Invite is not valid or has expired.</div>;
+  }
+
+  return (
+    <div className='flex justify-center items-center flex-1'>
+      {/* Render your room or whatever content is appropriate for a valid invite */}
+      {inviteValid ?
+       <div>
+      Welcome to the room!
+       
+        </div> : (
+            <div>
+
+                Room is Expired!
+
+                </div>
+        )}
+    </div>
+  );
 }
 
-export default Invite;
+export default InviteHandler;

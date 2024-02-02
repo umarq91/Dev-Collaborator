@@ -4,12 +4,12 @@ import 'firebase/auth'; // Add this import for authentication
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD2zWIEyGa23yh0oxDHsRY6QyVPDfPV6hw",
-    authDomain: "slack-clone-d000d.firebaseapp.com",
+    apiKey: import.meta.env.VITE_firebase_apiKey,
+    authDomain: import.meta.env.VITE_domain,
     projectId: "slack-clone-d000d",
-    storageBucket: "slack-clone-d000d.appspot.com",
-    messagingSenderId: "1064058241792",
-    appId: "1:1064058241792:web:73431be27765694bcf69e5"
+    storageBucket: import.meta.env.storageBucket,
+    messagingSenderId: import.meta.env.messagingSenderId,
+    appId: import.meta.env.appId
 };
 
 const app =initializeApp(firebaseConfig);

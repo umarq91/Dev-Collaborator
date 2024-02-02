@@ -56,7 +56,7 @@ function App() {
           
           </Route>
           <Route path="/rooms/:id" element={<Chat/>}/>
-          
+           <Route path="/invite" element={<Invite/>}/>
           
         </Routes>
       </div>
