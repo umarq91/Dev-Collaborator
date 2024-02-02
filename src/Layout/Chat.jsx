@@ -38,7 +38,7 @@
   chatref?.current?.scrollIntoView({
     behavior:'smooth'
   })
-  },[roomId,loading,messagesRef])
+  },[roomId,messagesRef])
 
 
 
@@ -47,8 +47,8 @@
       <>
     {roomId && roomDetails ? (
       <div
-        style={{ overflowY: "scroll", flexGrow: 1, flex: 0.7 }}
-        className="mt-28"
+        style={{ overflowY: "scroll", flexGrow: 1, flex: 1 }}
+        className="mt-20 "
       >
 
                             
@@ -110,7 +110,7 @@
     )
     :
   (
-    <div className=' flex justify-center flex-1 items-center  '>
+    <div className=' flex justify-center flex-1 items-center '>
       <h3 className='text-5xl opacity-15 font-mono'> Create or Select a Room / Channel </h3>
 
     </div>
