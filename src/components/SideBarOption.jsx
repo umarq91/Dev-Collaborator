@@ -9,17 +9,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { ConfirmRemoval } from './Modals/ConfirmRemoval';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 function SideBarOptions({Icon,title,addChannelOption,id,isCreator}) {
 const dispatch = useDispatch();
 const [user] = useAuthState(auth);
+const navigate = useNavigate()
 
 const [isDeleteModalOpen,setIsDeleteModalOpen] = useState(false)
 const [modalAction, setModalAction] = useState(null); // 'delete' or 'leave'
 
 
 const selectChannel =()=>{
+  navigate(`/room/${id}`)
   if(id){
     dispatch(enterRoom({
       roomId:id

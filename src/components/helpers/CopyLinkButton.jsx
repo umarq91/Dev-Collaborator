@@ -25,7 +25,7 @@ function CopyLinkButton() {
 
     return inviteId;
   };
-console.log(import.meta.env.VITE_MY_URL);
+
   const copyToClipboard = async () => {
     try {
       const inviteId = await createInvite();

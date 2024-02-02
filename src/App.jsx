@@ -11,6 +11,7 @@ import { SyncLoader} from 'react-spinners';
 import Header from './Layout/Header';
 import { ToastContainer } from 'react-toastify';
 import Invite from './pages/Invite';
+import Rooms from './pages/Rooms';
 
 function App() {
 
@@ -55,7 +56,7 @@ function App() {
           <Route path="/" element={<Chat/>}>
           
           </Route>
-          <Route path="/rooms/:id" element={<Chat/>}/>
+          <Route path="/room/:id" element={<Rooms/>}/>
            <Route path="/invite" element={<Invite/>}/>
           
         </Routes>
