@@ -79,7 +79,7 @@ const deleteRoom = async () => {
 
 
   return (
-    <div className="flex text-sm items-center pl-[2px] p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 ml-4 gap-2">
+    <div className="flex text-sm items-center p-1 cursor-pointer hover:bg-[#340e36] hover:opacity-90 gap-2">
       {Icon ? (
         <div className="flex items-center">
           <Icon fontSize="small" style={{ padding: 1 }} />
