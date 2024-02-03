@@ -43,6 +43,8 @@ function App() {
     )
   }
 
+  console.log(import.meta.env_VITE);
+
   return (
     <>
     {!user ? (

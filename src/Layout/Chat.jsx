@@ -1,7 +1,7 @@
-    import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
+    import { InfoOutlined } from '@mui/icons-material';
     import React, { useEffect, useRef } from 'react'
-    import { useSelector } from 'react-redux';
-    import { selectRoomId } from '../redux/appSlice';
+    import { useDispatch, useSelector } from 'react-redux';
+    import { enterRoom, selectRoomId } from '../redux/appSlice';
     import ChatInput from '../components/ChatInput';
     import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
     import { auth, db } from '../firebase';
@@ -13,10 +13,11 @@
   import Invite from '../pages/Invite';
   import ThreeDotsDropdown from '../components/helpers/ThreeDotsDropdown';
   import { useNavigate } from 'react-router-dom';
+  import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
     function Chat() {
-      const navigate = useNavigate()
-    
+      const navigate = useNavigate();
+      const dispatch = useDispatch();
 
       const chatref = useRef(null);
       const roomId = useSelector(selectRoomId);
@@ -40,7 +41,12 @@
   })
   },[roomId,messagesRef])
 
-
+const handleBack=()=>{
+  navigate('/')
+  dispatch(enterRoom({
+    roomId:null
+  }))
+}
 
 
     return (
@@ -48,20 +54,24 @@
     {roomId && roomDetails ? (
       <div
         style={{ overflowY: "scroll", flexGrow: 1, flex: 1 }}
-        className="mt-20 "
+        className="mt-10 "
       >
 
                             
                                   {/* HEADER */}
-
         <div className="flex justify-between  p-5 border-b-gray-500">
         
           {/* Header Left */}
-          <div className="flex items-center">
-            <h3 className="flex lowercase mr-2">
+          <div className="flex items-center gap-4 ">
+         <button onClick={handleBack} className='p-2 bg-gray-300 '> <ArrowBackIcon/>  Back  </button>
+            <h3 className="flex lowercase mr-2 item-center ">
+
+              
+              
+              
               <strong> #{roomDetails?.data().name} </strong>
             </h3>
-            <StarBorderOutlined className="ml-2 text-lg" />
+         
           </div>
 
 
@@ -95,7 +105,7 @@
             );
           })}
         </div>
-        <div ref={chatref} className="pb-[120px] md:pb-[65px]" />
+        <div ref={chatref} className="pb-[120px] md:pb-[120px]" />
 
 
 

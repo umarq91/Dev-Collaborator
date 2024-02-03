@@ -31,7 +31,7 @@ function Sidebar() {
     setIsModalOpen(true)
   
   
-    if (roomName.length < 4) return;  
+    if (roomName.length < 0) return;  
   
     addDoc(roomsCollectionRef, {
       name: roomName,
