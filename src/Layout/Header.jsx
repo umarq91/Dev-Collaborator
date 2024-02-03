@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Avatar } from '@mui/material'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
@@ -6,7 +6,9 @@ import HelpOutLine from '@mui/icons-material/HelpOutline';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { Logout } from '@mui/icons-material';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { Invitation } from '../components/Invitations';
+import InviteRequrestModal from '../components/Modals/InviteRequrestModal';
 
 
 
@@ -14,8 +16,20 @@ const Header = () => {
 
  const [user] = useAuthState(auth);
  const userRef = doc(db, "users", user?.uid);
-
+  const [inviteCount,setInviteCount] = useState(0)
+  const [inviteModal,setInviteModal] = useState(false)
+  const [invites,setInvites] = useState([])
  
+// Requests
+const invitationRef = query(collection(db, "emailInvites"), where("invitedUser", "==", user.email));
+
+
+
+
+
+
+
+
 
  let  handleOnlineStatus = async(status)=>{
   // update the use Online status
@@ -31,6 +45,7 @@ const Header = () => {
   auth.signOut();
  }
 
+
  useEffect(()=>{
 
 const handleOnline = () => {
@@ -40,6 +55,7 @@ const handleOnline = () => {
  handleOnline(); //setting the online status to true if the use is logged in and turned the window tab back ON 
   
   window.addEventListener('beforeunload',()=>handleOnlineStatus(false))  // it sets to offline when screen turns off
+
 
  },[userRef])
 
@@ -70,8 +86,9 @@ const handleOnline = () => {
 
                                             {/* Header Right */}
 
-        <div style={{flex:0.3}} className="right  flex items-end hover:cursor-pointer"  onClick={handleLogout}>
-
+            <button className='ml-auto' onClick={()=>setInviteModal(true)}> Click </button>
+          {inviteModal && <InviteRequrestModal invitationRef={invitationRef} isOpen={inviteModal} onClose={()=>setInviteModal(false) } />}
+        <div style={{flex:0.3}} className="right  flex items-end gap-3 hover:cursor-pointer"  onClick={handleLogout}>
           <Logout  className='ml-auto '/>
             <span className='mr-5 '> Logout </span>
         </div>

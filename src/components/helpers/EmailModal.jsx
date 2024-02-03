@@ -10,7 +10,7 @@ const EmailModal = ({ isOpen, onClose }) => {
   const roomId = useSelector(selectRoomId)
   const [user] = useAuthState(auth)
   const [email, setEmail] = useState('');
-  const InvitationRef = collection(db,'invitations')
+  const InvitationRef = collection(db,'emailInvites')
   if (!isOpen) return null;
 
 
