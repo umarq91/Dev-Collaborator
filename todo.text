@@ -13,6 +13,7 @@
 // todo : one person can send one request to user , 
 // fix mistake , make different functions for joining By Email vs joining by Link
 
+// make a request button on the header where i'll receive Invites
 
 invitation {
   invitedUserId: string,          // The UID of the user who is invited.
