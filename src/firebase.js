@@ -7,9 +7,9 @@ const firebaseConfig = {
     apiKey: import.meta.env.VITE_firebase_apiKey,
     authDomain: import.meta.env.VITE_domain,
     projectId: "slack-clone-d000d",
-    storageBucket: import.meta.env.storageBucket,
-    messagingSenderId: import.meta.env.messagingSenderId,
-    appId: import.meta.env.appId
+    storageBucket: import.meta.env.VITE_storageBucket,
+    messagingSenderId: import.meta.env.VITE_messagingSenderId,
+    appId: import.meta.env.VITE_appId
 };
 
 const app =initializeApp(firebaseConfig);
