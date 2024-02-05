@@ -64,7 +64,7 @@ const handleOnline = () => {
 
   return (
     // Container
-    <div className='flex fixed w-full items-center justify-between py-2 text-white bg-slack *:'>
+    <div className='flex fixed w-full items-center justify-between py-2 text-white bg-gray-800  border-b-2 border-gray-100*:'>
 
                                      {/* Header Left */}
             <div style={{flex:0.3}} className='flex items-center ml-5 '>
@@ -77,8 +77,8 @@ const handleOnline = () => {
 
                                          {/* Header center (Search) */}
 
-            <div style={{ flex: 0.4, backgroundColor: '#421f44',opacity:1 ,color:'gray'  }} className=" flex overflow-hidden text-center rounded-md px-[50px] border-gray-800"> 
-              <SearchIcon/>
+            <div style={{ flex: 0.4,opacity:1 ,color:'gray'  }} className=" flex bg-blue-600 overflow-hidden text-center rounded-md px-[50px] border-gray-800"> 
+              {/* <SearchIcon/> */}
               {/* input here */}      
               </div>
 

@@ -62,7 +62,7 @@ function Invite() {
 
 
   return (
-    <div className='flex justify-center items-center flex-1'>
+    <div className='flex justify-center items-center flex-1 '>
       {/* Render your room or whatever content is appropriate for a valid invite */}
       {inviteValid ?
        <div>

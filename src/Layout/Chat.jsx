@@ -54,7 +54,7 @@ const handleBack=()=>{
     {roomId && roomDetails ? (
       <div
         style={{ overflowY: "scroll", flexGrow: 1, flex: 1 }}
-        className="mt-10 "
+        className="mt-10  bg-gray-800 text-white"
       >
 
                             
@@ -63,7 +63,7 @@ const handleBack=()=>{
         
           {/* Header Left */}
           <div className="flex items-center gap-4 ">
-         <button onClick={handleBack} className='p-2 bg-gray-300 '> <ArrowBackIcon/>  Back  </button>
+         <button onClick={handleBack} className='p-2  '> <ArrowBackIcon/>  Back  </button>
             <h3 className="flex lowercase mr-2 item-center ">
 
               
@@ -120,8 +120,8 @@ const handleBack=()=>{
     )
     :
   (
-    <div className=' flex justify-center flex-1 items-center '>
-      <h3 className='text-5xl opacity-15 font-mono'> Create or Select a Room / Channel </h3>
+    <div className=' flex justify-center flex-1 items-center bg-gray-800'>
+      <h3 className='text-3xl opacity-15 text-white font-mono'> Create or Select a Room / Channel </h3>
 
     </div>
   )

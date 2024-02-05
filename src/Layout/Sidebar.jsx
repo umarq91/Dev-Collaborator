@@ -47,7 +47,7 @@ function Sidebar() {
   
   return (
     <div  style={{ borderTop: '1px solid #49274b', overflow: 'hidden',boxSizing:'bor'}}
-    className="bg-slack pt-[10vh] text-white h-full lg:w-[400px] md:w-[250px] overflow-y-auto hidden md:block">
+    className="bg-gray-900 pt-[10vh] text-white h-full lg:w-[400px] md:w-[250px] overflow-y-auto hidden md:block shadow border-2 border-gray-100" >
   
                      {/* Header */}
 

@@ -38,10 +38,10 @@ const Rooms = () => {
     }, [params.id, dispatch]); // Add params.id and dispatch to dependency array if they are not stable
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className='bg-gray-800 flex-1 justify-center items-center text-white'>Loading...</div>;
     }
 
-    return inviteValid ? <Chat /> : <div className='flex-1 flex justify-center items-center '>Room does not exist or invite is invalid.</div>;
+    return inviteValid ? <Chat /> : <div className='flex-1 flex justify-center items-center  '>Room does not exist or invite is invalid.</div>;
 };
 
 export default Rooms;
