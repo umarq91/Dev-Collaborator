@@ -51,7 +51,11 @@ const handleBack=()=>{
 
     return (
       <>
+
+
     {roomId && roomDetails ? (
+
+
       <div
         style={{ overflowY: "scroll", flexGrow: 1, flex: 1 }}
         className="mt-10  bg-gray-800 text-white"
@@ -92,10 +96,11 @@ const handleBack=()=>{
                           {/* Listing Messages Here */}
           {roommessages?.docs.map((doc) => {
             let { message, createdAt, user, userImage,userId } = doc.data();
+            const displayMessage = message.replace(/\\n/g, '\n');  // to show and goto next line  removing the /n 
             return (
               <Message
                 key={doc.id}
-                message={message}
+                message={displayMessage}
                 userImage={userImage}
                 createdAt={createdAt}
                 user={user}
@@ -121,6 +126,7 @@ const handleBack=()=>{
     :
   (
     <div className=' flex justify-center flex-1 items-center bg-gray-800'>
+      
       <h3 className='text-3xl opacity-15 text-white font-mono'> Create or Select a Room / Channel </h3>
 
     </div>
