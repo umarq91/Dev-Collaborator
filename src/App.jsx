@@ -1,6 +1,5 @@
 import React from 'react';
 import {Route, BrowserRouter,Routes } from 'react-router-dom';
-
 import Sidebar from './Layout/Sidebar';
 import Chat from './Layout/Chat';
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';

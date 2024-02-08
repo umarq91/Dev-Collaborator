@@ -46,12 +46,12 @@ function Sidebar() {
 
   
   return (
-    <div  style={{ borderTop: '1px solid #49274b', overflow: 'hidden',boxSizing:'bor'}}
-    className="bg-gray-900 pt-[10vh] text-white h-full lg:w-[400px] md:w-[250px] overflow-y-auto hidden md:block shadow border-2 border-gray-100" >
+    <div  style={{ overflow: 'hidden',boxSizing:'border-box'}}
+    className="bg-gray-900 pt-[10vh] text-white h-full lg:w-[400px] md:w-[250px] overflow-y-auto hidden md:block shadow border-r-2 border-gray-700" >
   
                      {/* Header */}
 
-      <div style={{ borderBottom: `1px solid #49274b` }} className=" flex p-3 mt-5">
+      <div  className=" flex p-3 mt-5">
         <div className="info flex-1 ">
           <h1 className="text-2xl font-bold mb-1 ml-1"> Dev Flex </h1>
           <h3 className=" text-sm flex items-center">

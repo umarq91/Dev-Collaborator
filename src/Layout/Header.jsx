@@ -72,7 +72,7 @@ const handleOnline = () => {
 
   return (
     // Container
-    <div className='flex fixed w-full items-center justify-between py-2 text-white bg-gray-800  border-b-2 border-gray-100*:'>
+    <div className='flex fixed w-full items-center justify-between py-2 text-white bg-gray-800  border-b-2 border-gray-700 :'>
 
                                      {/* Header Left */}
             <div style={{flex:0.3}} className='flex items-center ml-5 '>
