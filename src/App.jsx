@@ -11,6 +11,7 @@ import Header from './Layout/Header';
 import { ToastContainer } from 'react-toastify';
 import Invite from './pages/Invite';
 import Rooms from './pages/Rooms';
+import HomePage from './pages/HomePage';
 
 function App() {
 
@@ -42,7 +43,6 @@ function App() {
     )
   }
 
-  console.log(import.meta.env_VITE);
 
   return (
     <>
@@ -52,9 +52,8 @@ function App() {
       <BrowserRouter>
       <Header />
       <div className="h-[100vh] flex">
-        <Sidebar />
         <Routes>
-          <Route path="/" element={<Chat/>}>
+          <Route path="/" element={<HomePage/>}>
           
           </Route>
           <Route path="/room/:id" element={<Rooms/>}/>

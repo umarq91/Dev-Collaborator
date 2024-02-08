@@ -19,7 +19,7 @@ function Message({ message, user, userId, userImage, createdAt, isAdmin }) {
       <img src={userImage} alt='user image' width={60} className='rounded-lg border-2 border-black align-top bg-green-500' />
       {/* Info */}
       <div className="pl-2">
-        {isAdmin && <h2 className='text-sm text-green-600'> Creator </h2>}
+        {isAdmin && <h2 className='text-sm text-green-600'> admin </h2>}
         <h3 className='font-bold'>
           {user + '  '}
 

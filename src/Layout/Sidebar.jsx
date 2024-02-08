@@ -46,8 +46,8 @@ function Sidebar() {
 
   
   return (
-    <div  style={{ overflow: 'hidden',boxSizing:'border-box'}}
-    className="bg-gray-900 pt-[10vh] text-white h-full lg:w-[400px] md:w-[250px] overflow-y-auto hidden md:block shadow border-r-2 border-gray-700" >
+    <div 
+    className="bg-gray-900 pt-[10vh] text-white h-full w-full sm:w-[45%] md:w-[250px] lg:w-[350px]  overflow-y-auto  md:block shadow border-r-2 border-gray-700" >
   
                      {/* Header */}
 
