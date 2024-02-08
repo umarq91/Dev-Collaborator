@@ -58,7 +58,7 @@ function ChatInput({ channelId, channelName, chatref }) {
   onPaste={(e) => setInputMessage(e.clipboardData.getData('text'))}
   onKeyPress={handleKeyPress}
   placeholder={`Message #${channelName}`}
-  className="fixed bottom-8 w-[60%] rounded-md p-5 outline-none border bg-gray-300 border-gray-300 text-black resize-vertical" 
+  className="fixed bottom-8 w-[60%] rounded-md  outline-none border bg-gray-300 border-gray-300 text-black resize-vertical" 
   style={{ whiteSpace: 'pre-wrap' }}
 />
 

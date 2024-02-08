@@ -31,7 +31,7 @@ const EmailModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 text-black">
       <div className="max-w-sm mx-auto my-20 p-5 bg-white">
         <h2 className="text-lg">Enter User Email for Invitation.</h2>
         <input 

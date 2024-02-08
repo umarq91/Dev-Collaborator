@@ -45,7 +45,7 @@ function CopyLinkButton() {
   };
 
   return (
-    <button className='font-mono mr-3' onClick={copyToClipboard}>{text}</button>
+    <button className='font-mono mr-3 text-black' onClick={copyToClipboard}>{text}</button>
   );
 }
 

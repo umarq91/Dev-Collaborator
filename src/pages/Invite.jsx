@@ -71,7 +71,7 @@ function Invite() {
         </div> : (
             <div>
 
-                Room is Expired!
+                Room is expired or not avaiable
 
                 </div>
         )}
