@@ -31,6 +31,15 @@ const InviteRequestModal = ({ isOpen, onClose , invites }) => {
     }
   };
 
+
+  const rejectInvitation = async(invitationId)=>{
+    const invitationRef = doc(db, 'emailInvites', invitationId);
+    await deleteDoc(invitationRef)
+    toast.update('invitiation rejected')
+  }
+
+
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center text-black">
       <div className="bg-white h-96 w-[55vw] rounded-lg flex flex-col items-center">
@@ -57,7 +66,7 @@ const InviteRequestModal = ({ isOpen, onClose , invites }) => {
               <div className="">
 
             <button className='bg-green-500 text-white p-2 m-2' onClick={() => acceptInvitationByEmail(item.roomId, item.id)}>Accept</button>
-            <button className='bg-red-500 text-white p-2' onClick={() => acceptInvitationByEmail(item.roomId, item.id)}>Reject</button>
+            <button className='bg-red-500 text-white p-2' onClick={() => rejectInvitation(item.id)}>Reject</button>
               </div>
             
           </div>
