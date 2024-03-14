@@ -26,3 +26,5 @@ invitation {
   timestamp: timestamp,          // The timestamp when the invitation was created.
   status: string,                // The status of the invitation (e.g., 'pending', 'accepted', 'declined').
 }
+
+// todo : Adding WhiteBoard Feature
